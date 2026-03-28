@@ -16,23 +16,41 @@ string Buffer_Manager::fetch(int key){
     }
 
     cache_miss++;
-    registro new_registro = acess_database(key); // consultar no arquivo
-    int pos = evict();
+    registro new_registro = acess_database(key);
+
+    bool isfull = true;
+    int pos;
+    for(int i = 0; i < 5; i++){
+        if(memory[i].key == 0){
+            isfull = false;
+            pos = i;
+        }
+    }
+
+    if(isfull) pos = evict();
     memory[pos] = new_registro;
     return memory[pos].text;
 }
 
 void Buffer_Manager::displayCache(){
-    // ToDo: implementar função
+    for(registro& r : memory){
+        if(r.key == 0) cout << "Registro vazio.\n";
+        else {
+            cout << "Chave -> " << r.key << ". ";  
+            cout << "Valor -> " << r.text << ". ";
+            cout << "Atualização -> " << r.update << ".\n";
+        }
+    }
 }
 
 void Buffer_Manager::displayStats(){
-    // ToDo: implementar função
+    cout << "Cache Hit: " << cache_hit << "\n";
+    cout << "Cache Miss: " << cache_miss << "\n";
 }
 
+// ToDo: ajeitar resto da função
 registro Buffer_Manager::acess_database(int key){
-    // ToDo: ajeitar resto da função
     fstream myfile;
-    myfile.open("bancodedados.csv");
+    myfile.open("../bancodedados.csv");
     // o que é a chave??
 }
