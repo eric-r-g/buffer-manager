@@ -16,21 +16,26 @@ struct registro{
 class Buffer_Manager{
     public:
         Buffer_Manager();
+        virtual ~Buffer_Manager() = default; //destructor padrao
 
         string fetch(int key);
-
-        // definir para cada um dos métodos
-        virtual int evict() = 0;
 
         void displayCache();
 
         void displayStats();
+    
+    protected:
+        // definir para cada um dos métodos
+        virtual int evict() = 0;
 
-    private:
+        //notificar sobre um acesso (hit ou miss)
+        virtual void on_access(int index, bool is_hit) {}
+
         int cache_hit;
         int cache_miss;
         vector <registro> memory; 
 
+    private:
         registro acess_database(int key);
 };
 
