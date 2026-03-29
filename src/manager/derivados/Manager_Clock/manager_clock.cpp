@@ -6,6 +6,7 @@ using namespace std;
 // foram acessados recentemente
 Buffer_Manager_clock::Buffer_Manager_clock(){
     clock.resize(5); // constante
+    pos = 0;
 }
 
 int Buffer_Manager_clock::evict(){

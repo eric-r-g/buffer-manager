@@ -26,6 +26,7 @@ string Buffer_Manager::fetch(int key){
 
     cache_miss++;
     registro novo_registro = acess_database(key); //consultar no arquivo
+    if(novo_registro.key == -1) return novo_registro.text;
 
     //procurar um slot vazio
     int pos = -1;
