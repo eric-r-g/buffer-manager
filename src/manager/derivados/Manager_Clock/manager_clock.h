@@ -1,7 +1,7 @@
 #ifndef MANAGER_CLOCK
 #define MANAGER_CLOCK
 
-#include "../manager.h"
+#include "../../manager.h"
 
 class Buffer_Manager_clock : public Buffer_Manager {
     protected:

@@ -1,7 +1,7 @@
 #ifndef MANAGER_FIFO
 #define MANAGER_FIFO
 
-#include "../manager.h"
+#include "../../manager.h"
 
 class Buffer_Manager_FIFO : public Buffer_Manager{
     public:

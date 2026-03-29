@@ -1,7 +1,7 @@
 #ifndef MANAGER_LRU
 #define MANAGER_LRU
 
-#include "../manager.h"
+#include "../../manager.h"
 
 using namespace std;
 

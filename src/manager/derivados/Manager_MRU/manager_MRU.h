@@ -1,7 +1,7 @@
 #ifndef MANAGER_MRU
 #define MANAGER_MRU
 
-#include "manager.h"
+#include "../../manager.h"
 
 class Buffer_Manager_MRU : public Buffer_Manager{
     public:

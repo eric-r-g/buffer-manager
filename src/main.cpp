@@ -1,5 +1,7 @@
 #include "manager/derivados/Manager_FIFO/manager_FIFO.h"
 #include "manager/derivados/Manager_MRU/manager_MRU.h"
+#include "manager/derivados/Manager_Clock/manager_clock.h"
+#include "manager/derivados/Manager_LRU/manager_LRU.h"
 
 int main() {
     // ========== Teste FIFO ==========
@@ -27,6 +29,31 @@ int main() {
     mru.fetch(6); // deve remover a mais recente (página 1)
     mru.displayCache();
     mru.displayStats();
+
+    cout << "=== LRU Manager ===" << endl;
+    Buffer_Manager_LRU lru;
+    lru.fetch(1);
+    lru.fetch(2);
+    lru.fetch(3);
+    lru.fetch(4);
+    lru.fetch(5);
+    lru.displayCache();
+    lru.fetch(6);
+    lru.displayCache();
+    lru.displayStats();
+
+    cout << "\n=== clock Manager ===" << endl;
+    Buffer_Manager_clock clock;
+    clock.fetch(1);
+    clock.fetch(2);
+    clock.fetch(3);
+    clock.fetch(4);
+    clock.fetch(5);
+    clock.displayCache();
+    clock.fetch(1); // hit na página 1 (torna-se a mais recente)
+    clock.fetch(6); // deve remover a mais recente (página 1)
+    clock.displayCache();
+    clock.displayStats();
 
     return 0;
 }
