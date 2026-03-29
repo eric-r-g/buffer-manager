@@ -78,6 +78,7 @@ registro Buffer_Manager::acess_database(int key){
     int contador_linha = 1; //a primeira linha vai ser a chave 1
 
     while(getline(file, linha)){
+        if(!linha.empty() && linha.back() == '\r') linha.pop_back();
         if (contador_linha == key) {
             registro reg;
             reg.key = key;
