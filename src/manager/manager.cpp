@@ -15,7 +15,7 @@ Buffer_Manager::Buffer_Manager(){
 
 string Buffer_Manager::fetch(int key){
     //verificar se a pagina ja ta no buffer
-    for(int i = 0 ; i < (int) memory.size() ; i++){
+    for(int i = 0 ; i < (int) memory.size(); i++){
         registro r = memory[i];
         if(r.key == key){
             cache_hit++;

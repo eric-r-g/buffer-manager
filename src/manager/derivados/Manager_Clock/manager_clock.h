@@ -4,6 +4,9 @@
 #include "../../manager.h"
 
 class Buffer_Manager_clock : public Buffer_Manager {
+    public:
+        Buffer_Manager_clock();
+
     protected:
         int evict() override;
 

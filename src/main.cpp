@@ -7,6 +7,7 @@
 #include <memory>
 
 int main() {
+    cout << "---------------------------------------------------------------------" << endl;
     cout << "Seja bem vindo! Selecione a politica de substituição que você deseja." << endl;
     cout << "1 - Clock, 2 - FIFO, 3 - LRU, 4 - MRU." << endl;
     
@@ -31,6 +32,7 @@ int main() {
             manager = std::make_unique<Buffer_Manager_MRU>();
             break;
         default:
+            cout << "---------------------------------------------------------------------" << endl;
             cout << "politica invalida, tente novamente." << endl;
             val = 0;
             break;
@@ -40,6 +42,7 @@ int main() {
 
     int comando = 1;
     while(comando){
+        cout << "---------------------------------------------------------------------" << endl;
         cout << "Digite um comando." << endl;
         cout << "1 - fetch, 2 - display cache, 3 - display stats, 0 - terminar." << endl;
         cout << "-> ";
@@ -49,12 +52,12 @@ int main() {
         int chave;
         string conteudo;
 
+        cout << "---------------------------------------------------------------------" << endl;
         switch(comando){
             case 0:
                 cout << "Finalizando programa." << endl;
                 break;
             case 1:
-                
                 cout << "Digite a chave desejada." << endl;
                 cout << "-> ";
                 cin >> chave;

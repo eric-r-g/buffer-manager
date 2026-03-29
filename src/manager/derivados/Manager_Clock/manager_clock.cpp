@@ -4,6 +4,10 @@ using namespace std;
 
 // mantem uma fila booleana indicando aqueles que 
 // foram acessados recentemente
+Buffer_Manager_clock::Buffer_Manager_clock(){
+    clock.resize(5); // constante
+}
+
 int Buffer_Manager_clock::evict(){
     // enquanto ele não achar uma posição recentemente modifica, continua
     while(clock[pos] == 1){
