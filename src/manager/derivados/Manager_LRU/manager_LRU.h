@@ -10,7 +10,7 @@ class Buffer_Manager_LRU : public Buffer_Manager {
         int evict() override;
     private:
         vector <int> ordem;
-        void on_access(int index, bool is_hit) override;
+        void acesso(int index, bool is_hit) override;
 };
 
 

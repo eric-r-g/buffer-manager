@@ -3,14 +3,13 @@
 
 #include "../manager.h"
 
-using namespace std;
-
 class Buffer_Manager_clock : public Buffer_Manager {
-    public:
+    protected:
         int evict() override;
+
     private:   
         vector <bool> clock;
-        void on_access(int index, bool is_hit) override;
+        void acesso(int index, bool is_hit) override;
         int pos;
 };
 

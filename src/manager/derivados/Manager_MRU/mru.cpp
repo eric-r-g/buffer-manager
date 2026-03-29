@@ -1,6 +1,6 @@
-#include "mru.h"
+#include "manager_MRU.h"
 
-MRU::MRU() : Buffer_Manager(){
+Buffer_Manager_MRU::Buffer_Manager_MRU() : Buffer_Manager(){
     ultimo_indice = 0;
 }
 
@@ -8,13 +8,13 @@ MRU::MRU() : Buffer_Manager(){
 No MRU sempre o indice que foi acesso mais recentemente sera o apagado, ai basta guardar esse indice
 */
 
-void MRU::acesso(int index, bool /*hit*/){
+void Buffer_Manager_MRU::acesso(int index, bool /*hit*/){
     //para o MRU, nao importa se foi hit ou miss
     //o indice que acabou de ser usado vai ser o mais recente
     ultimo_indice = index;
 }
 
-int MRU::evict(){
+int Buffer_Manager_MRU::evict(){
     int pos = ultimo_indice;
 
     registro& removido = memory[pos];

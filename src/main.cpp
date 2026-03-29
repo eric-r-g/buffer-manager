@@ -1,10 +1,10 @@
-#include "fifo.h"
-#include "mru.h"
+#include "manager/derivados/Manager_FIFO/manager_FIFO.h"
+#include "manager/derivados/Manager_MRU/manager_MRU.h"
 
 int main() {
     // ========== Teste FIFO ==========
     cout << "=== FIFO Manager ===" << endl;
-    FIFO fifo;
+    Buffer_Manager_FIFO fifo;
     fifo.fetch(1);
     fifo.fetch(2);
     fifo.fetch(3);
@@ -16,7 +16,7 @@ int main() {
     fifo.displayStats();
 
     cout << "\n=== MRU Manager ===" << endl;
-    MRU mru;
+    Buffer_Manager_MRU mru;
     mru.fetch(1);
     mru.fetch(2);
     mru.fetch(3);

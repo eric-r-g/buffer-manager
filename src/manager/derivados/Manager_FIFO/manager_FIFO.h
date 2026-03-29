@@ -1,11 +1,11 @@
-#ifndef FIFO_H
-#define FIFO_H
+#ifndef MANAGER_FIFO
+#define MANAGER_FIFO
 
-#include "manager.h"
+#include "../manager.h"
 
-class FIFO : public Buffer_Manager{
+class Buffer_Manager_FIFO : public Buffer_Manager{
     public:
-        FIFO();
+        Buffer_Manager_FIFO();
     
     protected:
         int evict() override;

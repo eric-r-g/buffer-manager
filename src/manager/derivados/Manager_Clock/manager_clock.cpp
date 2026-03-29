@@ -2,7 +2,8 @@
 
 using namespace std;
 
-
+// mantem uma fila booleana indicando aqueles que 
+// foram acessados recentemente
 int Buffer_Manager_clock::evict(){
     // enquanto ele não achar uma posição recentemente modifica, continua
     while(clock[pos] == 1){
@@ -15,6 +16,6 @@ int Buffer_Manager_clock::evict(){
     return saida;
 }
 
-void Buffer_Manager_clock::on_access(int index, bool is_hit){
+void Buffer_Manager_clock::acesso(int index, bool is_hit){
     clock[index] = true;
 }

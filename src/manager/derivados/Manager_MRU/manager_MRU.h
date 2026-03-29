@@ -1,11 +1,11 @@
-#ifndef MRU_H
-#define MRU_H
+#ifndef MANAGER_MRU
+#define MANAGER_MRU
 
 #include "manager.h"
 
-class MRU : public Buffer_Manager{
+class Buffer_Manager_MRU : public Buffer_Manager{
     public:
-        MRU();
+        Buffer_Manager_MRU();
     
     protected:
         int evict() override;
