@@ -10,6 +10,7 @@ class Buffer_Manager_clock : public Buffer_Manager {
         int evict() override;
     private:   
         vector <bool> clock;
+        void on_access(int index, bool is_hit) override;
         int pos;
 };
 

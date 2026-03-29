@@ -8,8 +8,9 @@ using namespace std;
 class Buffer_Manager_LRU : public Buffer_Manager {
     public:
         int evict() override;
-    private:   
-        
+    private:
+        vector <int> ordem;
+        void on_access(int index, bool is_hit) override;
 };
 
 
