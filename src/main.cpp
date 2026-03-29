@@ -2,58 +2,79 @@
 #include "manager/derivados/Manager_MRU/manager_MRU.h"
 #include "manager/derivados/Manager_Clock/manager_clock.h"
 #include "manager/derivados/Manager_LRU/manager_LRU.h"
+#include "manager/manager.h"
+
+#include <memory>
 
 int main() {
-    // ========== Teste FIFO ==========
-    cout << "=== FIFO Manager ===" << endl;
-    Buffer_Manager_FIFO fifo;
-    fifo.fetch(1);
-    fifo.fetch(2);
-    fifo.fetch(3);
-    fifo.fetch(4);
-    fifo.fetch(5);
-    fifo.displayCache();
-    fifo.fetch(6); // deve remover a página 1 (FIFO)
-    fifo.displayCache();
-    fifo.displayStats();
+    cout << "Seja bem vindo! Selecione a politica de substituição que você deseja." << endl;
+    cout << "1 - Clock, 2 - FIFO, 3 - LRU, 4 - MRU." << endl;
+    
 
-    cout << "\n=== MRU Manager ===" << endl;
-    Buffer_Manager_MRU mru;
-    mru.fetch(1);
-    mru.fetch(2);
-    mru.fetch(3);
-    mru.fetch(4);
-    mru.fetch(5);
-    mru.displayCache();
-    mru.fetch(1); // hit na página 1 (torna-se a mais recente)
-    mru.fetch(6); // deve remover a mais recente (página 1)
-    mru.displayCache();
-    mru.displayStats();
+    unique_ptr<Buffer_Manager> manager;
+    int val = 0;
+    while(val <= 0 || val >= 5){
+        cout << "-> ";
+        cin >> val;
 
-    cout << "=== LRU Manager ===" << endl;
-    Buffer_Manager_LRU lru;
-    lru.fetch(1);
-    lru.fetch(2);
-    lru.fetch(3);
-    lru.fetch(4);
-    lru.fetch(5);
-    lru.displayCache();
-    lru.fetch(6);
-    lru.displayCache();
-    lru.displayStats();
+        switch(val){
+            case 1:
+            manager = make_unique<Buffer_Manager_clock>();
+            break;
+        case 2:
+            manager = std::make_unique<Buffer_Manager_FIFO>();
+            break;
+        case 3:
+            manager = std::make_unique<Buffer_Manager_LRU>();
+            break;
+        case 4:
+            manager = std::make_unique<Buffer_Manager_MRU>();
+            break;
+        default:
+            cout << "politica invalida, tente novamente." << endl;
+            val = 0;
+            break;
+        }
+        
+    }
 
-    cout << "\n=== clock Manager ===" << endl;
-    Buffer_Manager_clock clock;
-    clock.fetch(1);
-    clock.fetch(2);
-    clock.fetch(3);
-    clock.fetch(4);
-    clock.fetch(5);
-    clock.displayCache();
-    clock.fetch(1); // hit na página 1 (torna-se a mais recente)
-    clock.fetch(6); // deve remover a mais recente (página 1)
-    clock.displayCache();
-    clock.displayStats();
+    int comando = 1;
+    while(comando){
+        cout << "Digite um comando." << endl;
+        cout << "1 - fetch, 2 - display cache, 3 - display stats, 0 - terminar." << endl;
+        cout << "-> ";
+        cin >> comando;
+
+        // declarado fora para não haver problema com o switch
+        int chave;
+        string conteudo;
+
+        switch(comando){
+            case 0:
+                cout << "Finalizando programa." << endl;
+                break;
+            case 1:
+                
+                cout << "Digite a chave desejada." << endl;
+                cout << "-> ";
+                cin >> chave;
+
+                conteudo = manager ->fetch(chave);
+                cout << "O conteudo da pagina era o seguinte: " << endl;
+                cout << conteudo << endl;
+                break;
+            case 2:
+                manager -> displayCache();
+                break;
+            case 3:
+                manager -> displayStats();
+                break;
+            default:
+                cout << "Comando invalido, tente novamente." << endl;
+                comando = 1;
+                break;
+        }
+    }
 
     return 0;
 }
