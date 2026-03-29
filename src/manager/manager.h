@@ -30,7 +30,7 @@ class Buffer_Manager{
         virtual int evict() = 0;
 
         //notificar sobre um acesso (hit ou miss)
-        virtual void on_access(int index, bool is_hit) {}
+        virtual void acesso(int index, bool hit) {}
 
         int cache_hit;
         int cache_miss;

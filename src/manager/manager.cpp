@@ -4,7 +4,6 @@ using namespace std;
 
 Buffer_Manager::Buffer_Manager(){
     cache_hit = 0, cache_miss = 0;
-    //memory = vector <registro> (5); nao quis apagar nada teu, mas acho que nao faz sentido -> ja tem no .h
     memory.resize(5);
     //inicializar a seed aleatoria (uma unica vez)
     static bool seed = false;
@@ -20,7 +19,7 @@ string Buffer_Manager::fetch(int key){
         registro r = memory[i];
         if(r.key == key){
             cache_hit++;
-            on_access(i, true); //notificar acesso (hit)
+            acesso(i, true); //notificar acesso (hit)
             return r.text;
         }
     }
@@ -40,7 +39,7 @@ string Buffer_Manager::fetch(int key){
     if(pos == -1) pos = evict();
 
     memory[pos] = novo_registro;
-    on_access(pos, false); // notifica acesso (miss)
+    acesso(pos, false); // notifica acesso (miss)
     return memory[pos].text;
 }
 
@@ -74,22 +73,19 @@ registro Buffer_Manager::acess_database(int key){
 
     //percorre o arquivo ate achar a chave especificada
     string linha;
+    getline(file, linha); //pular a primeira linha
+
+    int contador_linha = 1; //a primeira linha vai ser a chave 1
+
     while(getline(file, linha)){
-        stringstream ss(linha);
-
-        string chave;
-        getline(ss, chave, ',');
-        int chave_atual = stoi(chave); //tranforma a chave para inteiro
-
-        if (chave_atual == key) {
-            string texto;
-            getline(ss, texto); //pega o resto da linha
+        if (contador_linha == key) {
             registro reg;
             reg.key = key;
-            reg.text = texto;
+            reg.text = linha;
             reg.update = rand() % 2; //true ou false aleatorio
             return reg;
         }
+        contador_linha++;
     }
 
     //se chegou aqui, nao encontrou a chave
