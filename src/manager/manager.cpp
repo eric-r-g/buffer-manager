@@ -26,12 +26,12 @@ string Buffer_Manager::fetch(int key){
     }
 
     cache_miss++;
-    registro new_registro = acess_database(key); // consultar no arquivo
+    registro novo_registro = acess_database(key); //consultar no arquivo
 
     //procurar um slot vazio
     int pos = -1;
     for(int i = 0 ; i < memory.size() ; i++){
-        if(memory[i].key == 0) { // slot vazio
+        if(memory[i].key == 0) { //slot vazio
             pos = i;
             break;
         }
@@ -39,12 +39,13 @@ string Buffer_Manager::fetch(int key){
     //se nao tiver slot vazio, aplica a politica de substituicao
     if(pos == -1) pos = evict();
 
-    memory[pos] = new_registro;
+    memory[pos] = novo_registro;
     on_access(pos, false); // notifica acesso (miss)
     return memory[pos].text;
 }
 
 void Buffer_Manager::displayCache(){
+    //imprime as informaçoes dos registros no buffer
     cout << "Conteudo do Buffer:" << endl;
     for (const auto& reg : memory) {
         cout << "Chave: " << reg.key
@@ -60,8 +61,41 @@ void Buffer_Manager::displayStats(){
 }
 
 registro Buffer_Manager::acess_database(int key){
-    // ToDo: ajeitar resto da função
-    fstream myfile;
-    myfile.open("bancodedados.csv");
-    // o que é a chave??
+    //tenta abrir o arquivo de banco de dados
+    ifstream file("bancodedados.csv");
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo bancodedados.csv" << endl;
+        registro r;
+        r.key = -1;
+        r.text = "Erro";
+        r.update = false;
+        return r;
+    }
+
+    //percorre o arquivo ate achar a chave especificada
+    string linha;
+    while(getline(file, linha)){
+        stringstream ss(linha);
+
+        string chave;
+        getline(ss, chave, ',');
+        int chave_atual = stoi(chave); //tranforma a chave para inteiro
+
+        if (chave_atual == key) {
+            string texto;
+            getline(ss, texto); //pega o resto da linha
+            registro reg;
+            reg.key = key;
+            reg.text = texto;
+            reg.update = rand() % 2; //true ou false aleatorio
+            return reg;
+        }
+    }
+
+    //se chegou aqui, nao encontrou a chave
+    registro nao_encontrado;
+    nao_encontrado.key = -1;
+    nao_encontrado.text = "Nao Encontrado";
+    nao_encontrado.update = false;
+    return nao_encontrado;
 }
